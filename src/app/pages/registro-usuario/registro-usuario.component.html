@@ -1,0 +1,88 @@
+<div class="container mt-5">
+  <div class="card bg-light shadow-lg mx-auto" style="width: 600px;">
+    <div class="card-body">
+      <h5 class="card-title text-primary">Registro de Usuario</h5>
+      <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="username" class="form-label">Nombre de Usuario</label>
+          <input id="username" type="text" formControlName="username" class="form-control" placeholder="Escribe tu usuario" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña</label>
+          <input id="password" type="password" formControlName="password" class="form-control" placeholder="Escribe tu contraseña" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo Electrónico</label>
+          <input id="email" type="email" formControlName="email" class="form-control" placeholder="Escribe tu correo electrónico" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input id="nombre" type="text" formControlName="nombre" class="form-control" placeholder="Escribe tu nombre">
+        </div>
+
+        <div class="mb-3">
+          <label for="apellidos" class="form-label">Apellidos</label>
+          <input id="apellidos" type="text" formControlName="apellidos" class="form-control" placeholder="Escribe tus apellidos">
+        </div>
+
+        <div class="mb-3">
+          <label for="numColegiado" class="form-label">Número de Colegiado</label>
+          <input id="numColegiado" type="number" formControlName="numColegiado" class="form-control" placeholder="Escribe tu número de colegiado" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="calle" class="form-label">Calle</label>
+          <input id="calle" type="text" formControlName="calle" class="form-control" placeholder="Escribe tu calle">
+        </div>
+
+        <div class="mb-3">
+          <label for="numDireccion" class="form-label">Número de Dirección</label>
+          <input id="numDireccion" type="text" formControlName="numDireccion" class="form-control" placeholder="Escribe tu número de dirección">
+        </div>
+
+        <div class="mb-3">
+          <label for="especialidad" class="form-label">Especialidad</label>
+          <input id="especialidad" type="text" formControlName="especialidad" class="form-control" placeholder="Escribe tu especialidad">
+        </div>
+
+        <div class="mb-3">
+          <label for="lugNacimiento" class="form-label">Lugar de Nacimiento</label>
+          <input id="lugNacimiento" type="text" formControlName="lugNacimiento" class="form-control" placeholder="Escribe tu lugar de nacimiento">
+        </div>
+
+        <div class="mb-3">
+          <label for="sexo" class="form-label">Sexo</label>
+          <select id="sexo" formControlName="sexo" class="form-select" required>
+            <option value="Hombre">Hombre</option>
+            <option value="Mujer">Mujer</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="fechaNac" class="form-label">Fecha de Nacimiento</label>
+          <input id="fechaNac" type="date" formControlName="fechaNac" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="paisResidencia" class="form-label">País de Residencia</label>
+          <input id="paisResidencia" type="text" formControlName="paisResidencia" class="form-control" placeholder="Escribe tu país de residencia">
+        </div>
+
+        <div class="mb-3">
+          <label for="telefono" class="form-label">Teléfono</label>
+          <input id="telefono" type="tel" formControlName="telefono" class="form-control" placeholder="Escribe tu teléfono" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="sitioTrabajo" class="form-label">Sitio de Trabajo</label>
+          <input id="sitioTrabajo" type="text" formControlName="sitioTrabajo" class="form-control" placeholder="Escribe tu sitio de trabajo">
+        </div>
+
+        <button type="submit" class="btn btn-primary" >Registrar</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,8 @@
+@if(loginSvc.loggedIn()){
 <!-- app.component.html -->
 <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
+    <h5 id="titulodeNavBar">Bienvenido a Medico App</h5>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -8,7 +10,6 @@
 </nav>
 <div class="collapse" id="navbarToggleExternalContent">
   <div class="bg-dark p-4">
-    <h5 class="text-white h4">Collapsed content</h5>
     <li>
       <ul>
         <a class="text-white" href="/pacientes">Pacientes</a>
@@ -23,6 +24,11 @@
   </div>
 </div>
 <div class="container mt-5">
-  <h1 class="display-4">Bienvenido a la Historia Clínica</h1>
+  <h1 class="display-4"></h1>
   <p class="lead">Aquí puede encontrar y gestionar toda la información clínica relevante.</p>
+</div>
+}
+
+<div class="container mt-1">
+  <router-outlet></router-outlet>
 </div>

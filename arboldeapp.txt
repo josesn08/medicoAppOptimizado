@@ -1,0 +1,18 @@
+./src
+├── app
+│   ├── app.component.css
+│   ├── app.component.html
+│   ├── app.component.ts
+│   ├── app.config.ts
+│   ├── app.routes.ts
+│   ├── model
+│   ├── pages
+│   └── service
+├── environments
+│   ├── environment.prod.ts
+│   └── environment.ts
+├── index.html
+├── main.ts
+└── styles.css
+
+5 directories, 10 files
