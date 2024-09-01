@@ -18,92 +18,107 @@
                 </h2>
               <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-            <br>
             <h6>Para descartar que el dolor torácico sea cardiogénico, rellenar la escala EDACS</h6>
-            <br>
-                <form id="encuestaForm">
-                  <label for="pregunta1">Edad:</label>
-                  <input list="opcionesPregunta1" id="pregunta1" name="pregunta1">
-                  <datalist id="opcionesPregunta1"></datalist>
+                <form [formGroup]="cuestionarioEDACSForm" (ngSubmit)="onSubmit()">
 
-                  <br><br>
+                  <form>
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Edad</label>
+                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" (change)="seleccionarEdad($event)">
+                    </div>
+                  </form>
 
+                  <form>
                   <!-- Agrega más preguntas con sus datalists -->
-                  <label for="pregunta2">Sexo:</label>
-                  <input list="opcionesPregunta2" id="pregunta2" name="pregunta2">
-                  <datalist id="opcionesPregunta2">
-                      <option value="Hombre"></option>
-                      <option value="Mujer"></option>
-                      <!-- Agrega más opciones según sea necesario -->
-                  </datalist>
+                  <label for="pregunta2" class="form-label"> Sexo: </label>
+                  <br>
+                  <div id="pregunta2" class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" (click)="seleccionarSexoHombre()">
+                    <label class="btn btn-outline-primary" for="btnradio1" > Hombre </label>
 
-                  <br><br>
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" (click)="seleccionarMujer()">
+                    <label class="btn btn-outline-primary" for="btnradio2"> Mujer </label>
 
-                  <label for="pregunta3">Diaforesis:</label>
-                  <input list="opcionesPregunta3" id="pregunta3" name="pregunta3">
-                  <datalist id="opcionesPregunta3">
-                      <option value="Si"></option>
-                      <option value="No"></option>
-                      <!-- Agrega más opciones según sea necesario -->
-                  </datalist>
+                  </div>
+                </form>
+                <br>
+                <form>
+                  <label for="pregunta3" class="form-label"> Diaforesis: </label>
+                  <br>
+                  <div id="pregunta3" class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+                    <input type="radio" class="btn-check" name="btnradio" id="btnpreg3.1" autocomplete="off" (click)="seleccionarDiaforesis()">
+                    <label class="btn btn-outline-primary" for="btnpreg3.1" > Si </label>
 
-                  <br><br>
+                    <input type="radio" class="btn-check" name="btnradio" id="btnpreg3.2" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnpreg3.2"> No </label>
 
-                  <label for="pregunta4">Dolor que se irradia a brazo, hombro, cuello o mandíbula</label>
-                  <input list="opcionesPregunta4" id="pregunta4" name="pregunta4">
-                  <datalist id="opcionesPregunta4">
-                      <option value="Si"></option>
-                      <option value="No"></option>
-                      <!-- Agrega más opciones según sea necesario -->
-                  </datalist>
+                  </div>
+                </form>
+                <br>
+                <form>
+                  <label for="pregunta4" class="form-label"> Dolor que ocurre o se agrava con la inspiración </label>
+                  <br>
+                  <div id="pregunta4" class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+                    <input type="radio" class="btn-check" name="btnradio" id="btnpreg4.1" autocomplete="off" (click)="seleccionarDiaforesis()">
+                    <label class="btn btn-outline-primary" for="btnpreg4.1" > Si </label>
 
-                  <br><br>
+                    <input type="radio" class="btn-check" name="btnradio" id="btnpreg4.2" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnpreg4.2"> No </label>
 
-                  <label for="pregunta5">Dolor que ocurre o se agrava con la inspiración</label>
-                  <input list="opcionesPregunta5" id="pregunta5" name="pregunta5">
-                  <datalist id="opcionesPregunta5">
-                      <option value="Si"></option>
-                      <option value="No"></option>
-                      <!-- Agrega más opciones según sea necesario -->
-                  </datalist>
+                  </div>
+                </form>
+                <br>
+                <form>
+                  <label for="pregunta5" class="form-label"> Dolor a la digitopresión </label>
+                  <br>
+                  <div id="pregunta5" class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+                    <input type="radio" class="btn-check" name="btnradio" id="btnpreg5.1" autocomplete="off" (click)="seleccionarDiaforesis()">
+                    <label class="btn btn-outline-primary" for="btnpreg5.1" > Si </label>
 
-                  <br><br>
+                    <input type="radio" class="btn-check" name="btnradio" id="btnpreg5.2" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnpreg.2"> No </label>
 
-                  <label for="pregunta6">Dolor a la digitopresión</label>
-                  <input list="opcionesPregunta6" id="pregunta6" name="pregunta6">
-                  <datalist id="opcionesPregunta6">
-                      <option value="Si"></option>
-                      <option value="No"></option>
-                      <!-- Agrega más opciones según sea necesario -->
-                  </datalist>
+                  </div>
+                </form>
+                <br>
+                <form id="antecedentesCoronarios">
+                  <label for="antecedentesCoronarios"> Antecedentes Coronarios: </label>
+                  <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                    <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheck1">Infarto coronario previo</label>
 
-                  <br><br>
+                    <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheck2">Bypass coronario</label>
 
-              <form id="encuestaFormFactoresRiegoCardiovascular">
-                      <!-- Lista 1 -->
-                      <label for="lista1">Antecedentes Coronarios:</label>
-                      <select id="lista1" onchange="seleccionarOpcionLista1()">
-                          <option value="Ninguna">Selecciona una opción</option>
-                          <option value="infarto">Infarto coronario previo</option>
-                          <option value="bypass">Bypass coronario</option>
-                          <option value="intervencion">Intervención percutánea coronaria</option>
-                      </select>
+                    <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheck3">Intervención percutánea coronaria</label>
 
-                      <br><br>
+                    <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheck4">Ninguno</label>
+                  </div>
+                </form>
+                <br>
+                <form id="antecedentesCardiovasculares">
+                  <label for="antecedentesCardiovasculares"> Antecedentes Cariovasculares: </label>
+                  <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                    <input type="checkbox" class="btn-check" id="btncheckACV1" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheckACV1">Dislipidemia</label>
 
-                      <!-- Lista 2 -->
-                      <label for="lista2" id="lista2">Antecedentes Cariovasculares:</label>
-                      <br>
-                            <input type="checkbox" name="opcion1" value="1" id="checkboxOpcion1">Dislipidemia
-                      <br>
-                            <input type="checkbox" name="opcion2" value="1" id="checkboxOpcion2">Diabetes
-                      <br>
-                              <input type="checkbox" name="opcion3" value="1" id="checkboxOpcion3">Hipertensión
-                      <br>
-                            <input type="checkbox" name="opcion4" value="1" id="checkboxOpcion4">Fumador
-                      <br>
-                            <input type="checkbox" name="opcion5" value="1" id="checkboxOpcion5">Familiar con historia de enfermedad coronaria prematura
-                      <br>
+                    <input type="checkbox" class="btn-check" id="btncheckACV2" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheckACV2">Diabetes</label>
+
+                    <input type="checkbox" class="btn-check" id="btncheckACV3" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheckACV3">Hipertensión</label>
+
+                    <input type="checkbox" class="btn-check" id="btncheckACV4" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheckACV4">Fumador</label>
+
+                    <input type="checkbox" class="btn-check" id="btncheckACV5" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheckACV5">Familiar con historia de enfermedad coronaria prematura</label>
+                  </div>
+                </form>
+                <br>
+                <form id="encuestaFormFactoresRiegoCardiovascular">
 
                       <button type="button" onclick="calcularPuntuacionLista2()">Calcular Puntuación</button>
                         <br>
@@ -195,40 +210,6 @@
                   return puntajeTotal;
               }
 
-              function asignarPuntajePregunta1(respuesta) {
-                  var valorRespuesta = parseInt(respuesta);
-                  if (valorRespuesta >= 18 && valorRespuesta <= 45) {
-                      return 2;
-                  } else if (valorRespuesta >= 46 && valorRespuesta <= 50) {
-                      return 4;
-                  } else if (valorRespuesta >= 51 && valorRespuesta <= 55) {
-                      return 6;
-                  } else if (valorRespuesta >= 56 && valorRespuesta <= 60) {
-                      return 8;
-                  } else if (valorRespuesta >= 61 && valorRespuesta <= 65) {
-                      return 10;
-                  } else if (valorRespuesta >= 66 && valorRespuesta <= 70) {
-                      return 12;
-                  } else if (valorRespuesta >= 71 && valorRespuesta <= 75) {
-                      return 14;
-                  } else if (valorRespuesta >= 76 && valorRespuesta <= 80) {
-                      return 16;
-                  } else if (valorRespuesta >= 81 && valorRespuesta <= 85) {
-                      return 18;
-                  } else if (valorRespuesta >= 86) {
-                      return 20;
-                  }
-                  return 0;
-              }
-
-              function asignarPuntajePregunta2(respuesta) {
-                  if (respuesta === "Hombre") {
-                      return 0;
-                  } else if (respuesta === "Mujer") {
-                      return 6;
-                  }
-                  return 0;
-              }
 
               function asignarPuntajePregunta3(respuesta) {
                   if (respuesta === "Si") {
