@@ -18,7 +18,9 @@ export class HistoriaClinicaComponent {
 
   constructor(private fb: FormBuilder){
     this.motivoConsultaForm = this.fb.group({
-      motivoConsulta: ['']
+      historiaClinica: this.fb.group({
+        motivoConsulta: ['']
+      })
     });
 
     this.historiaClinica = [{
@@ -54,7 +56,7 @@ export class HistoriaClinicaComponent {
     this.mostrarCuestionarioEDACS = false
   }
   onSubmit(){
-    const motivoConsultaSeleccionado = this.motivoConsultaForm.get('motivoConsulta')?.value;
+    const motivoConsultaSeleccionado = this.motivoConsultaForm.get('historiaClinica.motivoConsulta')?.value;
   }
 
   onCambioMotivoConsulta(event: Event){

@@ -8,9 +8,19 @@
           <select id="motivoConsulta" formControlName="motivoConsulta" class="form-control" (change)="onCambioMotivoConsulta($event)">
             <option *ngFor="let motivoConsulta of historiaClinica[0].motivoConsulta " [value]="motivoConsulta"> {{ motivoConsulta }}</option>
           </select>
-
-          <div [attr.hidden]="!mostrarCuestionarioEDACS ? true : null">
-
+          <br>
+          <div [attr.hidden]="!mostrarCuestionarioEDACS ? true : null" class="accordion">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  CUESTIONARIO EDACS
+                </button>
+                </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+            <br>
+            <h6>Para descartar que el dolor torácico sea cardiogénico, rellenar la escala EDACS</h6>
+            <br>
                 <form id="encuestaForm">
                   <label for="pregunta1">Edad:</label>
                   <input list="opcionesPregunta1" id="pregunta1" name="pregunta1">
@@ -324,7 +334,7 @@
                   resultadoEncuestaContainer.innerHTML = "El puntaje total de la encuesta es: " + puntajeTotal;
 
                   if (puntajeTotal >= 16) {
-                      resultadoEncuestaContainer.innerHTML += '<br>Realizar "EKG y enzimas cardiacas";
+                      resultadoEncuestaContainer.innerHTML += '<br>Realizar "EKG y enzimas cardiacas';
                       resultadoEncuestaContainer.innerHTML += '<br><button onclick="redirigirSiguiente()">Siguiente</button>';
                   } else {
                       resultadoEncuestaContainer.innerHTML += '<br>Realizar solo "EKG"';
@@ -343,6 +353,9 @@
               }
               </script>
                 </form>
+              </div>
+            </div>
+          </div>
           </div>
         </div>
         <button type="submit">Enviar</button>
