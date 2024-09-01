@@ -1,9 +1,17 @@
 export interface CuestionarioEDACS {
   diaforesis : boolean,
+  puntajeDiaforesis: number,
   dolorIrradiado : boolean,
-  dolorInspiración : boolean,
+  puntajeDolorIrradiado: number,
+  dolorInspiracion : boolean,
+  puntajeDolorInspiracion: number,
   dolorDigitoPresion : boolean,
-  enfermedadCoronaria : (string)[],
+  puntajeDolorDigitoPresion: number,
+  enfermedadCoronaria : boolean,
+  antecedentesCV: boolean,
+  puntajeCoronarioYFRCV: number,
+  puntajeSexo: number,
+  puntajeEdad: number,
   puntajeCuestionarioEDACS: number,
 };
 

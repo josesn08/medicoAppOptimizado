@@ -56,10 +56,23 @@
                 </form>
                 <br>
                 <form>
+                  <label for="preguntaEXT" class="form-label"> Dolor que se irradia a hombro, brazo, cuello o mandíbula </label>
+                  <br>
+                  <div id="preguntaEXT" class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+                    <input type="radio" class="btn-check" name="btnradio" id="btnpregEXT.1" autocomplete="off" (click)="seleccionarIrradiacion()">
+                    <label class="btn btn-outline-primary" for="btnpregEXT.1" > Si </label>
+
+                    <input type="radio" class="btn-check" name="btnradio" id="btnpregEXT.2" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnpregEXT.2"> No </label>
+
+                  </div>
+                </form>
+                <br>
+                <form>
                   <label for="pregunta4" class="form-label"> Dolor que ocurre o se agrava con la inspiración </label>
                   <br>
                   <div id="pregunta4" class="btn-group" role="group" aria-label="Basic radio toggle button group" >
-                    <input type="radio" class="btn-check" name="btnradio" id="btnpreg4.1" autocomplete="off" (click)="seleccionarDiaforesis()">
+                    <input type="radio" class="btn-check" name="btnradio" id="btnpreg4.1" autocomplete="off" (click)="seleccionarDolorInspiracion()">
                     <label class="btn btn-outline-primary" for="btnpreg4.1" > Si </label>
 
                     <input type="radio" class="btn-check" name="btnradio" id="btnpreg4.2" autocomplete="off">
@@ -72,18 +85,18 @@
                   <label for="pregunta5" class="form-label"> Dolor a la digitopresión </label>
                   <br>
                   <div id="pregunta5" class="btn-group" role="group" aria-label="Basic radio toggle button group" >
-                    <input type="radio" class="btn-check" name="btnradio" id="btnpreg5.1" autocomplete="off" (click)="seleccionarDiaforesis()">
+                    <input type="radio" class="btn-check" name="btnradio" id="btnpreg5.1" autocomplete="off" (click)="seleccionarDolorDigitoPresion()">
                     <label class="btn btn-outline-primary" for="btnpreg5.1" > Si </label>
 
-                    <input type="radio" class="btn-check" name="btnradio" id="btnpreg5.2" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnpreg.2"> No </label>
+                    <input type="radio" class="btn-check" name="btnradio" id="btnpreg5.2" autocomplete="off" (click)="deseleccionarDolorDigitoPresion()">
+                    <label class="btn btn-outline-primary" for="btnpreg5.2"> No </label>
 
                   </div>
                 </form>
                 <br>
                 <form id="antecedentesCoronarios">
                   <label for="antecedentesCoronarios"> Antecedentes Coronarios: </label>
-                  <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                  <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group" (click)="seleccionarAntecedentesCoronarios()">
                     <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
                     <label class="btn btn-outline-primary" for="btncheck1">Infarto coronario previo</label>
 
@@ -98,243 +111,29 @@
                   </div>
                 </form>
                 <br>
-                <form id="antecedentesCardiovasculares">
-                  <label for="antecedentesCardiovasculares"> Antecedentes Cariovasculares: </label>
+                <form id="antecedentesCardiovasculares" [attr.hidden]="!mostrarCuestionarioACV ? true : null" [formGroup]="antecedentesCardiovascularesForm" (ngSubmit)="antecedentesCVResp()">
+                  <label for="antecedentesCardiovasculares" > Antecedentes Cariovasculares: </label>
                   <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                    <input type="checkbox" class="btn-check" id="btncheckACV1" autocomplete="off">
+                    <input type="checkbox" class="btn-check" id="btncheckACV1" formControlName="btncheckACV1"  autocomplete="off" (change)="antecedentesCVChange()">
                     <label class="btn btn-outline-primary" for="btncheckACV1">Dislipidemia</label>
 
-                    <input type="checkbox" class="btn-check" id="btncheckACV2" autocomplete="off">
+                    <input type="checkbox" class="btn-check" id="btncheckACV2" formControlName="btncheckACV2" autocomplete="off" (change)="antecedentesCVChange()">
                     <label class="btn btn-outline-primary" for="btncheckACV2">Diabetes</label>
 
-                    <input type="checkbox" class="btn-check" id="btncheckACV3" autocomplete="off">
+                    <input type="checkbox" class="btn-check" id="btncheckACV3" formControlName="btncheckACV3" autocomplete="off" (change)="antecedentesCVChange()">
                     <label class="btn btn-outline-primary" for="btncheckACV3">Hipertensión</label>
 
-                    <input type="checkbox" class="btn-check" id="btncheckACV4" autocomplete="off">
+                    <input type="checkbox" class="btn-check" id="btncheckACV4" formControlName="btncheckACV4" autocomplete="off" (change)="antecedentesCVChange()">
                     <label class="btn btn-outline-primary" for="btncheckACV4">Fumador</label>
 
-                    <input type="checkbox" class="btn-check" id="btncheckACV5" autocomplete="off">
+                    <input type="checkbox" class="btn-check" id="btncheckACV5" formControlName="btncheckACV5" autocomplete="off" (change)="antecedentesCVChange()">
                     <label class="btn btn-outline-primary" for="btncheckACV5">Familiar con historia de enfermedad coronaria prematura</label>
                   </div>
                 </form>
                 <br>
-                <form id="encuestaFormFactoresRiegoCardiovascular">
-
-                      <button type="button" onclick="calcularPuntuacionLista2()">Calcular Puntuación</button>
-                        <br>
-                        <div id="resultadoLista2"></div>
-
-                      <br><br>
-
-                      <!-- Lista 3 -->
-                      <label for="lista3">Ninguna de las anteriores:</label>
-                      <select id="lista3" onchange="seleccionarOpcionLista3()">
-                          <option value="" disabled selected>Selecciona una opción</option>
-                          <option value="ninguna">Ninguna de las anteriores</option>
-                      </select>
-
-                      <br><br>
-              </form>
-
-              <form id="continuacionEncuestaform">
-                      <!-- Pregunta 7 -->
-                      <label for="pregunta7">Ha tenido enfermedad coronaria o 3 o más factores de riesgo</label>
-                      <input list="opcionesPregunta7" id="pregunta7" name="pregunta7">
-                      <datalist id="opcionesPregunta7">
-                          <option value="Enfermedad coronaria"></option>
-                          <option value="3 o mas factores de riesgo"></option>
-                          <option value="Ninguna de las dos"></option>
-                      </datalist>
-
-                  <button type="button" onclick="calcularPuntajeEncuesta()">Calcular Puntaje</button>
-              </form>
-
-              <!-- Contenedor para mostrar el resultado -->
-              <div id="resultadoEncuesta"></div>
-
-              <script>
-              var datalistPregunta1 = document.getElementById("opcionesPregunta1");
-              for (var i = 18; i <= 100; i++) {
-                  var option = document.createElement("option");
-                  option.value = i;
-                  datalistPregunta1.appendChild(option);
-              }
-
-              var optionMas100 = document.createElement("option");
-              optionMas100.value = ">100";
-              datalistPregunta1.appendChild(optionMas100);
-
-              function calcularPuntajeEncuesta() {
-                  var puntajeTotal = obtenerPuntajeEncuesta();
-                  mostrarResultadosEncuesta(puntajeTotal);
-              }
-
-              function calcularPuntuacionLista2() {
-                  var opcionesSeleccionadasLista2 = document.querySelectorAll('input[type="checkbox"]:checked');
-
-                  if (opcionesSeleccionadasLista2.length >= 3) {
-                      var pregunta7 = document.getElementById("pregunta7");
-                      pregunta7.value = "3 o mas factores de riesgo";
-                      lista1.style.display = "none";
-                      lista3.style.display = "none";
-                  }
-                  else{
-                      mostrarResultadolista2('Selecciona al menos dos opciones');
-                  }
-              }
-
-              function mostrarResultadolista2(mensaje) {
-                  var resultadoContainerLista2 = document.getElementById('resultadoLista2');
-                  resultadoContainerLista2.innerHTML = mensaje;
-              }
-
-              function obtenerPuntajeEncuesta() {
-                  var puntajeTotal = 0;
-
-                  var respuestaPregunta1 = document.getElementById("pregunta1").value;
-                  var respuestaPregunta2 = document.getElementById("pregunta2").value;
-                  var respuestaPregunta3 = document.getElementById("pregunta3").value;
-                  var respuestaPregunta4 = document.getElementById("pregunta4").value;
-                  var respuestaPregunta5 = document.getElementById("pregunta5").value;
-                  var respuestaPregunta6 = document.getElementById("pregunta6").value;
-                  var respuestaPregunta7 = document.getElementById("pregunta7").value;
-
-                  puntajeTotal += asignarPuntajePregunta1(respuestaPregunta1);
-                  puntajeTotal += asignarPuntajePregunta2(respuestaPregunta2);
-                  puntajeTotal += asignarPuntajePregunta3(respuestaPregunta3);
-                  puntajeTotal += asignarPuntajePregunta4(respuestaPregunta4);
-                  puntajeTotal += asignarPuntajePregunta5(respuestaPregunta5);
-                  puntajeTotal += asignarPuntajePregunta6(respuestaPregunta6);
-                  puntajeTotal += asignarPuntajePregunta7(respuestaPregunta7);
-
-                  return puntajeTotal;
-              }
-
-
-              function asignarPuntajePregunta3(respuesta) {
-                  if (respuesta === "Si") {
-                      return 3;
-                  } else if (respuesta === "No") {
-                      return 0;
-                  }
-                  return 0;
-              }
-
-              function asignarPuntajePregunta4(respuesta) {
-                  if (respuesta === "Si") {
-                      return 5;
-                  } else if (respuesta === "No") {
-                      return 0;
-                  }
-                  return 0;
-              }
-
-              function asignarPuntajePregunta5(respuesta) {
-                  if (respuesta === "Si") {
-                      return -4;
-                  } else if (respuesta === "No") {
-                      return 0;
-                  }
-                  return 0;
-              }
-
-              function asignarPuntajePregunta6(respuesta) {
-                  if (respuesta === "Si") {
-                      return -6;
-                  } else if (respuesta === "No") {
-                      return 0;
-                  }
-                  return 0;
-              }
-
-              function asignarPuntajePregunta7(respuesta) {
-                  if (respuesta === "Enfermedad coronaria") {
-                      return 4;
-                  } else if (respuesta === "3 o mas factores de riesgo") {
-                      return 4;
-                  }
-                  return 0;
-              }
-
-              function seleccionarOpcionLista1() {
-                  var lista1 = document.getElementById("lista1");
-                  var lista2 = document.getElementById("lista2");
-                  var lista3 = document.getElementById("lista3");
-
-
-
-                  if (lista1.value === "infarto" || lista1.value === "bypass" || lista1.value === "intervencion") {
-                      var pregunta7 = document.getElementById("pregunta7");
-                      pregunta7.value = "Enfermedad coronaria";
-                      lista2.style.display = "none";
-                      lista3.style.display = "none";
-                      checkboxOpcion1.style.display = "none";
-                      checkboxOpcion2.style.display = "none";
-                      checkboxOpcion3.style.display = "none";
-                      checkboxOpcion4.style.display = "none";
-                      checkboxOpcion5.style.display = "none";
-                  }
-              }
-
-              function seleccionarOpcionLista2() {
-                  var lista1 = document.getElementById("lista1");
-                  var lista2 = document.getElementById("lista2");
-                  var lista3 = document.getElementById("lista3");
-
-
-
-                  var opcionesSeleccionadasLista2 = document.querySelectorAll('input[type="checkbox"]:checked');
-                  if (opcionesSeleccionadasLista2.length >= 2) {
-                      var pregunta7 = document.getElementById("pregunta7");
-                      pregunta7.value = "3 o mas factores de riesgo";
-                  }
-              }
-
-              function seleccionarOpcionLista3() {
-                  var lista1 = document.getElementById("lista1");
-                  var lista2 = document.getElementById("lista2");
-                  var lista3 = document.getElementById("lista3");
-
-
-
-                  var pregunta7 = document.getElementById("pregunta7");
-                  if (lista3.value === "ninguna") {
-                      pregunta7.value = "Ninguna de las dos";
-                      lista1.style.display = "none";
-                      lista2.style.display = "none";
-                      checkboxOpcion1.style.display = "none";
-                      checkboxOpcion2.style.display = "none";
-                      checkboxOpcion3.style.display = "none";
-                      checkboxOpcion4.style.display = "none";
-                      checkboxOpcion5.style.display = "none";
-                  }
-              }
-
-              function mostrarResultadosEncuesta(puntajeTotal) {
-                  var resultadoEncuestaContainer = document.getElementById("resultadoEncuesta");
-                  resultadoEncuestaContainer.innerHTML = "El puntaje total de la encuesta es: " + puntajeTotal;
-
-                  if (puntajeTotal >= 16) {
-                      resultadoEncuestaContainer.innerHTML += '<br>Realizar "EKG y enzimas cardiacas';
-                      resultadoEncuestaContainer.innerHTML += '<br><button onclick="redirigirSiguiente()">Siguiente</button>';
-                  } else {
-                      resultadoEncuestaContainer.innerHTML += '<br>Realizar solo "EKG"';
-                      resultadoEncuestaContainer.innerHTML += '<br><button onclick="redirigirOtraPagina()">Siguiente</button>';
-                  }
-              }
-
-              function redirigirSiguiente() {
-                  // Redireccionar a la página correspondiente
-                  window.location.href = "tu_pagina_siguiente.html";
-              }
-
-              function redirigirOtraPagina() {
-                  // Redireccionar a otra página correspondiente
-                  window.location.href = "otra_pagina.html";
-              }
-              </script>
+                <h6>El puntaje de la escala EDACS es de {{this.calcularPuntajeEDACS()}} </h6>
                 </form>
-              </div>
+                </div>
             </div>
           </div>
           </div>
