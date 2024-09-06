@@ -31,3 +31,7 @@
 .btn-inactive{
   color: white
 }
+
+#antecedentesCardiovasculares{
+  display: block;
+}

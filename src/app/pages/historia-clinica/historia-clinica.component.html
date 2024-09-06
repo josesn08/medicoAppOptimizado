@@ -1,18 +1,27 @@
 <div class="container-cards" >
   <div class="card">
     <div class="card-body">
+      <h5 class="card-title text-primary" >Datos del Paciente</h5>
+      <app-filiacion-yantecedentes></app-filiacion-yantecedentes>
+    </div>
+  </div>
+</div>
+
+<div class="container-cards" >
+  <div class="card">
+    <div class="card-body">
       <h5 class="card-title text-primary" >HISTORIA CLÍNICA</h5>
       <form [formGroup]="motivoConsultaForm" (ngSubmit)="onSubmit()" >
-        <div formGroupName="historiaClinica">
+
           <label for="motivoConsulta">Motivo de Consulta:</label>
-          <select id="motivoConsulta" formControlName="motivoConsulta" class="form-control" (change)="onCambioMotivoConsulta($event)">
+          <select id="motivoConsulta" formControlName="motivoConsulta" class="form-control">
             <option *ngFor="let motivoConsulta of historiaClinica[0].motivoConsulta " [value]="motivoConsulta"> {{ motivoConsulta }}</option>
           </select>
           <br>
-          <div [attr.hidden]="!mostrarCuestionarioEDACS ? true : null" class="accordion">
+          <div id="mostrarFormularioEDACS" *ngIf="motivoConsultaForm.get('motivoConsulta')?.value === 'Dolor torácico'" class="accordion" >
             <app-formulario-edacs></app-formulario-edacs>
 
-          </div>
+
           </div>
       </form>
         </div>
@@ -21,6 +30,10 @@
   <div class="card">
     <div class="card-body">
       <h5 class="card-title text-primary" >HISTORIA CLÍNICA</h5>
+
+
+      <label for="exampleFormControlTextarea1" class="form-label">Motivo de Consulta</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" [value]="this.motivoConsultaForm.get('motivoConsulta')?.value"></textarea>
     </div>
 </div>
 </div>

@@ -1,122 +1,119 @@
+
+
+
 <div class="accordion-item">
   <h2 class="accordion-header">
     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
       CUESTIONARIO EDACS
     </button>
-    </h2>
+  </h2>
   <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
     <div class="accordion-body">
-<h6>Para descartar que el dolor torácico sea cardiogénico, rellenar la escala EDACS</h6>
-    <form [formGroup]="cuestionarioEDACSForm">
+      <h6>Para descartar que el dolor torácico sea cardiogénico, rellenar la escala EDACS</h6>
+      <form [formGroup]="cuestionarioEDACSForm">
+        <br>
+        <label for="edad" (change)="asignarPuntajePregunta1()">Edad del Paciente: {{this.pacienteHistoriaClinica[0].edad}}</label>
 
-      <form>
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Edad</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" (change)="seleccionarEdad($event)">
+        <br> <br>
+
+        <label for="sexo" (change)="asignarPuntajePreguntaSexo()">Sexo del Paciente: {{this.pacienteHistoriaClinica[0].sexo}}</label>
+
+        <br> <br>
+        <form>
+          <label for="pregunta3" class="form-label"> Diaforesis: </label>
+          <br>
+          <div id="pregunta3" class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio" id="btnpreg3.1" autocomplete="off" (click)="seleccionarDiaforesis()" >
+            <label class="btn btn-outline-primary" for="btnpreg3.1" > Si </label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnpreg3.2" autocomplete="off" (click)="deseleccionarDiaforesis()">
+            <label class="btn btn-outline-primary" for="btnpreg3.2"> No </label>
+
+          </div>
+        </form>
+        <br>
+        <form>
+          <label for="preguntaEXT" class="form-label"> Dolor que se irradia a hombro, brazo, cuello o mandíbula </label>
+          <br>
+          <div id="preguntaEXT" class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+            <input type="radio" class="btn-check" name="btnradio" id="btnpregEXT.1" autocomplete="off" (click)="seleccionarIrradiacion()">
+            <label class="btn btn-outline-primary" for="btnpregEXT.1" > Si </label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnpregEXT.2" autocomplete="off" (click)="deseleccionarIrradiacion()">
+            <label class="btn btn-outline-primary" for="btnpregEXT.2"> No </label>
+
+          </div>
+        </form>
+        <br>
+        <form>
+          <label for="pregunta4" class="form-label"> Dolor que ocurre o se agrava con la inspiración </label>
+          <br>
+          <div id="pregunta4" class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+            <input type="radio" class="btn-check" name="btnradio" id="btnpreg4.1" autocomplete="off" (click)="seleccionarDolorInspiracion()">
+            <label class="btn btn-outline-primary" for="btnpreg4.1" > Si </label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnpreg4.2" autocomplete="off" (click)="deseleccionarDolorInspiracion()">
+            <label class="btn btn-outline-primary" for="btnpreg4.2"> No </label>
+
+          </div>
+        </form>
+        <br>
+        <form>
+          <label for="pregunta5" class="form-label"> Dolor a la digitopresión </label>
+          <br>
+            <div id="pregunta5" class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+              <input type="radio" class="btn-check" name="btnradio" id="btnpreg5.1" autocomplete="off" (click)="seleccionarDolorDigitoPresion()">
+              <label class="btn btn-outline-primary" for="btnpreg5.1" > Si </label>
+
+              <input type="radio" class="btn-check" name="btnradio" id="btnpreg5.2" autocomplete="off" (click)="deseleccionarDolorDigitoPresion()">
+              <label class="btn btn-outline-primary" for="btnpreg5.2"> No </label>
+
+            </div>
+        </form>
+        <br>
+        <form>
+          <label for="pregunta6" class="form-label"> Antecedentes coronarios </label>
+          <br>
+          <div id="pregunta6" class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+            <input type="radio" class="btn-check" name="btnradio" id="btnpreg6.1" autocomplete="off" (click)="seleccionarAntecedentesCoronarios()">
+            <label class="btn btn-outline-primary" for="btnpreg6.1" > Infarto coronario previo y/o Bypass coronario y/o Intervención percutánea coronaria </label>
+
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnpreg6.2" autocomplete="off" (click)="deseleccionarAntecedentesCoronarios()">
+            <label class="btn btn-outline-primary" for="btnpreg6.2"> ninguna </label>
+
+          </div>
+        </form>
+        <br>
+        <div >
+          <form id="antecedentesCardiovasculares"  [formGroup]="antecedentesCardiovascularesForm" (ngSubmit)="antecedentesCVResp()">
+
+            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group" *ngIf="edadFormularioACV()"
+             id="antecedentesCardiovasculares">
+              <label for="antecedentesCardiovasculares" > Antecedentes Cariovasculares: </label>
+
+                <br><br>
+                <input type="checkbox" class="btn-check" id="btncheckACV1" formControlName="btncheckACV1"  autocomplete="off" (change)="antecedentesCVChange()">
+                <label class="btn btn-outline-primary" for="btncheckACV1">Dislipidemia</label>
+
+                <input type="checkbox" class="btn-check" id="btncheckACV2" formControlName="btncheckACV2" autocomplete="off" (change)="antecedentesCVChange()">
+                <label class="btn btn-outline-primary" for="btncheckACV2">Diabetes</label>
+
+                <input type="checkbox" class="btn-check" id="btncheckACV3" formControlName="btncheckACV3" autocomplete="off" (change)="antecedentesCVChange()">
+                <label class="btn btn-outline-primary" for="btncheckACV3">Hipertensión</label>
+
+                <input type="checkbox" class="btn-check" id="btncheckACV4" formControlName="btncheckACV4" autocomplete="off" (change)="antecedentesCVChange()">
+                <label class="btn btn-outline-primary" for="btncheckACV4">Fumador</label>
+
+                <input type="checkbox" class="btn-check" id="btncheckACV5" formControlName="btncheckACV5" autocomplete="off" (change)="antecedentesCVChange()">
+                <label class="btn btn-outline-primary" for="btncheckACV5">Familiar con historia de enfermedad coronaria prematura</label>
+
+            </div>
+          </form>
         </div>
+        <br>
+        <h6>El puntaje de la escala EDACS es de {{this.calcularPuntajeEDACS()}} </h6>
       </form>
-
-      <form>
-      <!-- Agrega más preguntas con sus datalists -->
-      <label for="pregunta2" class="form-label"> Sexo: </label>
-      <br>
-      <div id="pregunta2" class="btn-group" role="group" aria-label="Basic radio toggle button group" >
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" (click)="seleccionarSexoHombre()">
-        <label class="btn btn-outline-primary" for="btnradio1" > Hombre </label>
-
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" (click)="seleccionarMujer()">
-        <label class="btn btn-outline-primary" for="btnradio2"> Mujer </label>
-
-      </div>
-    </form>
-    <br>
-    <form>
-      <label for="pregunta3" class="form-label"> Diaforesis: </label>
-      <br>
-      <div id="pregunta3" class="btn-group" role="group" aria-label="Basic radio toggle button group" >
-        <input type="radio" class="btn-check" name="btnradio" id="btnpreg3.1" autocomplete="off" (click)="seleccionarDiaforesis()">
-        <label class="btn btn-outline-primary" for="btnpreg3.1" > Si </label>
-
-        <input type="radio" class="btn-check" name="btnradio" id="btnpreg3.2" autocomplete="off" (click)="deseleccionarDiaforesis()">
-        <label class="btn btn-outline-primary" for="btnpreg3.2"> No </label>
-
-      </div>
-    </form>
-    <br>
-    <form>
-      <label for="preguntaEXT" class="form-label"> Dolor que se irradia a hombro, brazo, cuello o mandíbula </label>
-      <br>
-      <div id="preguntaEXT" class="btn-group" role="group" aria-label="Basic radio toggle button group" >
-        <input type="radio" class="btn-check" name="btnradio" id="btnpregEXT.1" autocomplete="off" (click)="seleccionarIrradiacion()">
-        <label class="btn btn-outline-primary" for="btnpregEXT.1" > Si </label>
-
-        <input type="radio" class="btn-check" name="btnradio" id="btnpregEXT.2" autocomplete="off" (click)="deseleccionarIrradiacion()">
-        <label class="btn btn-outline-primary" for="btnpregEXT.2"> No </label>
-
-      </div>
-    </form>
-    <br>
-    <form>
-      <label for="pregunta4" class="form-label"> Dolor que ocurre o se agrava con la inspiración </label>
-      <br>
-      <div id="pregunta4" class="btn-group" role="group" aria-label="Basic radio toggle button group" >
-        <input type="radio" class="btn-check" name="btnradio" id="btnpreg4.1" autocomplete="off" (click)="seleccionarDolorInspiracion()">
-        <label class="btn btn-outline-primary" for="btnpreg4.1" > Si </label>
-
-        <input type="radio" class="btn-check" name="btnradio" id="btnpreg4.2" autocomplete="off" (click)="deseleccionarDolorInspiracion()">
-        <label class="btn btn-outline-primary" for="btnpreg4.2"> No </label>
-
-      </div>
-    </form>
-    <br>
-    <form>
-      <label for="pregunta5" class="form-label"> Dolor a la digitopresión </label>
-      <br>
-      <div id="pregunta5" class="btn-group" role="group" aria-label="Basic radio toggle button group" >
-        <input type="radio" class="btn-check" name="btnradio" id="btnpreg5.1" autocomplete="off" (click)="seleccionarDolorDigitoPresion()">
-        <label class="btn btn-outline-primary" for="btnpreg5.1" > Si </label>
-
-        <input type="radio" class="btn-check" name="btnradio" id="btnpreg5.2" autocomplete="off" (click)="deseleccionarDolorDigitoPresion()">
-        <label class="btn btn-outline-primary" for="btnpreg5.2"> No </label>
-
-      </div>
-    </form>
-    <br>
-    <form>
-      <label for="pregunta6" class="form-label"> Antecedentes coronarios </label>
-      <br>
-      <div id="pregunta6" class="btn-group" role="group" aria-label="Basic radio toggle button group" >
-        <input type="radio" class="btn-check" name="btnradio" id="btnpreg6.1" autocomplete="off" (click)="seleccionarAntecedentesCoronarios()">
-        <label class="btn btn-outline-primary" for="btnpreg6.1" > Infarto coronario previo y/o Bypass coronario y/o Intervención percutánea coronaria </label>
-
-
-        <input type="radio" class="btn-check" name="btnradio" id="btnpreg6.2" autocomplete="off" (click)="deseleccionarAntecedentesCoronarios()">
-        <label class="btn btn-outline-primary" for="btnpreg6.2"> ninguna </label>
-
-      </div>
-    </form>
-    <br>
-    <form id="antecedentesCardiovasculares" [attr.hidden]="!mostrarCuestionarioACV ? true : null" [formGroup]="antecedentesCardiovascularesForm" (ngSubmit)="antecedentesCVResp()">
-      <label for="antecedentesCardiovasculares" > Antecedentes Cariovasculares: </label>
-      <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-        <input type="checkbox" class="btn-check" id="btncheckACV1" formControlName="btncheckACV1"  autocomplete="off" (change)="antecedentesCVChange()">
-        <label class="btn btn-outline-primary" for="btncheckACV1">Dislipidemia</label>
-
-        <input type="checkbox" class="btn-check" id="btncheckACV2" formControlName="btncheckACV2" autocomplete="off" (change)="antecedentesCVChange()">
-        <label class="btn btn-outline-primary" for="btncheckACV2">Diabetes</label>
-
-        <input type="checkbox" class="btn-check" id="btncheckACV3" formControlName="btncheckACV3" autocomplete="off" (change)="antecedentesCVChange()">
-        <label class="btn btn-outline-primary" for="btncheckACV3">Hipertensión</label>
-
-        <input type="checkbox" class="btn-check" id="btncheckACV4" formControlName="btncheckACV4" autocomplete="off" (change)="antecedentesCVChange()">
-        <label class="btn btn-outline-primary" for="btncheckACV4">Fumador</label>
-
-        <input type="checkbox" class="btn-check" id="btncheckACV5" formControlName="btncheckACV5" autocomplete="off" (change)="antecedentesCVChange()">
-        <label class="btn btn-outline-primary" for="btncheckACV5">Familiar con historia de enfermedad coronaria prematura</label>
-      </div>
-    </form>
-    <br>
-    <h6>El puntaje de la escala EDACS es de {{this.calcularPuntajeEDACS()}} </h6>
-    </form>
     </div>
+  </div>
 </div>

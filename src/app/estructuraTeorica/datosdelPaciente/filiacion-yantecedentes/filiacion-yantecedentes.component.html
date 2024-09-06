@@ -1,0 +1,48 @@
+<br>
+<form [formGroup]="filiacionPacienteForm" id="formularioFiliacionPaciente">
+  <div class="container">
+    <label for="razaPaciente" class="form-label">Raza</label>
+    <select id="razaPaciente" class="form-select form-select-sm" aria-label="Small select example" formControlName="raza" >
+      <option value="" disabled>Seleccione la raza del paciente</option>
+      <option *ngFor="let raza of this.paciente[0].raza" >{{raza}}</option>
+    </select>
+    <label for="edadPaciente" class="form-label">Edad</label>
+    <input id="edadPaciente" class="form-control form-control-sm" type="text" placeholder="Solo escriba números" aria-label=".form-control-sm example" formControlName="edad" (ngModelChange)="obtenerEdadDelFormulario()">
+    <!-- Agrega más preguntas con sus datalists -->
+    <label for="pregunta2" class="form-label"> Sexo: </label>
+    <div id="pregunta2" class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+      <input type="radio" class="btn-check"  id="btnradio1" autocomplete="off" formControlName="sexo" value="Hombre" (ngModelChange)="obtenerSexoDelFormulario()">
+      <label class="btn btn-outline-primary" for="btnradio1" > Hombre </label>
+
+      <input type="radio" class="btn-check"  id="btnradio2" autocomplete="off" formControlName="sexo" value="Mujer" (ngModelChange)="obtenerSexoDelFormulario()">
+      <label class="btn btn-outline-primary" for="btnradio2"> Mujer </label>
+    </div>
+  </div>
+  <br>
+  <div class="container" id="content">
+    <label for="profesionPaciente" class="form-label">Profesión</label>
+    <input id="profesionPaciente" class="form-control form-control-sm" type="text" aria-label=".form-control-sm example" formControlName="profesion">
+
+    <label for="orientacionSexual" class="form-label"> Orientacion sexual </label>
+    <div id="orientacionSexual" class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+      <input type="radio" class="btn-check"  id="Heterosexual" autocomplete="off" formControlName="orientacionSexual" value="Heterosexual">
+      <label class="btn btn-outline-primary" for="Heterosexual" > Heterosexual </label>
+
+      <input type="radio" class="btn-check"  id="Homosexual" autocomplete="off" formControlName="orientacionSexual" value="Homosexual">
+      <label class="btn btn-outline-primary" for="Homosexual"> Homosexual y otros</label>
+    </div>
+
+
+    <label for="promiscuidad" class="form-label"> Promiscuidad sexual </label>
+    <div id="promiscuidad" class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+      <input type="radio" class="btn-check"  id="siPromiscuidad" autocomplete="off" formControlName="promiscuidad" value='true'>
+      <label class="btn btn-outline-primary" for="siPromiscuidad" > Si</label>
+
+      <input type="radio" class="btn-check"  id="noPromiscuidad" autocomplete="off" formControlName="promiscuidad" value="false">
+      <label class="btn btn-outline-primary" for="noPromiscuidad"> No</label>
+    </div>
+  </div>
+</form>
+
+
+

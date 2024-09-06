@@ -34,7 +34,7 @@ export class LoginComponent {
   }
 
   public procesarRespuesta(datos:any, usuario:Usuario): void{
-    this.router.navigateByUrl('/src/app/pages/pacientes');
+    this.router.navigateByUrl('/pacientes');
   }
 
   redirectToRegister() {

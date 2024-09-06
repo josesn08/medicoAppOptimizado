@@ -1,3 +1,5 @@
+import { Signal } from "@angular/core";
+
 export interface Paciente {
   numeroHistoriaClinica:number,
   email:string,
@@ -8,10 +10,11 @@ export interface Paciente {
   lugNacimiento:string,
   sexo:string,
   fechaNac:Date,
-  edad: number;
+  edad:number;
   paisResidencia:string,
   telefono:number,
   profesion:string,
+  raza:(string)[],
 }
 
 
