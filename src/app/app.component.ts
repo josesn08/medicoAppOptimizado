@@ -8,9 +8,13 @@ import { LoginService } from './service/login.service';
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']  // Nota: Asegúrate de usar `styleUrls`, no `styleUrl`
+
 })
 export class AppComponent {
   title = 'medicoAppOptimizado';
+  listadePaginas:(string)[]=[
+    ''
+  ]
 
   constructor (public loginSvc:LoginService ) { }
 

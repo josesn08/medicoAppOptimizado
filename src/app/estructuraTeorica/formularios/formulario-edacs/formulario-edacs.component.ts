@@ -6,7 +6,7 @@ import { NgFor, CommonModule, NgIf } from '@angular/common';
 import { Paciente } from 'src/app/model/paciente';
 import { CuestionarioEDACS } from 'src/app/model/cardiologia/dolorToracico/cuestionario-edacs';
 import { FiliacionYAntecedentesComponent } from "../../datosdelPaciente/filiacion-yantecedentes/filiacion-yantecedentes.component";
-import { single } from 'rxjs';
+
 
 
 

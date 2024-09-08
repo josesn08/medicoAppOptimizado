@@ -1,0 +1,8 @@
+#antecedentesOrganizados{
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  padding: 1%;
+  max-width: 100%;
+  margin: 0.5%;
+}

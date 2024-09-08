@@ -1,1 +1,22 @@
-<p>antecedentes works!</p>
+<div id="antecedentesOrganizados">
+<div>
+  <h6>Seleccionar antecedentes para agregar</h6>
+  <br>
+<form [formGroup]="cuestionarioAntecedentesForm">
+  <div formArrayName="opciones">
+    <div *ngFor="let opciones of opciones.controls; let i = index">
+      <label>
+        <input class="form-check-input" type="checkbox" [formControlName]="i">
+        <label class="form-check-label" for="flexCheckDefault">&nbsp;&nbsp;{{listaOpciones[i]}} </label>
+      </label>
+    </div>
+
+  </div>
+</form>
+</div>
+<div>
+  <h6>Seleccion la medicación que toma el paciente</h6>
+  <br><br>
+  <app-medicamentos></app-medicamentos>
+</div>
+</div>

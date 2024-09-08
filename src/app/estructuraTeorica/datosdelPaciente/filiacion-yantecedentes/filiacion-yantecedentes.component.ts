@@ -5,7 +5,7 @@ import { NgFor, CommonModule } from '@angular/common';
 import { FormularioEDACSComponent } from "../../formularios/formulario-edacs/formulario-edacs.component";
 import { HistoriaClinicaComponent } from 'src/app/pages/historia-clinica/historia-clinica.component';
 import { DatosCompartidosHistoriaClinicaService } from 'src/app/service/datos-compartidos-historia-clinica.service';
-import { BrowserModule } from '@angular/platform-browser';
+
 
 
 @Component({

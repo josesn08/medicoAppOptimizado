@@ -5,13 +5,14 @@ import { HistoriaClinica } from './../../model/historia-clinica';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgFor, CommonModule, NgIf } from '@angular/common';
+import { AntecedentesComponent } from "../../estructuraTeorica/datosdelPaciente/antecedentes/antecedentes.component";
 
 
 
 @Component({
   selector: 'app-historia-clinica',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, FormularioEDACSComponent, FiliacionYAntecedentesComponent],
+  imports: [ReactiveFormsModule, CommonModule, FormularioEDACSComponent, FiliacionYAntecedentesComponent, AntecedentesComponent],
   templateUrl: './historia-clinica.component.html',
   styleUrls: ['./historia-clinica.component.css'],
 })

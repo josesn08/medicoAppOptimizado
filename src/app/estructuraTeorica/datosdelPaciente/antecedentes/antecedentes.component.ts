@@ -1,30 +1,39 @@
+import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, FormArray } from '@angular/forms';
+import { MedicamentosComponent } from '../../medicamentos/medicamentos.component';
 
 @Component({
   selector: 'app-antecedentes',
   standalone: true,
-  imports: [],
+  imports: [NgFor, ReactiveFormsModule, MedicamentosComponent],
   templateUrl: './antecedentes.component.html',
   styleUrl: './antecedentes.component.css'
 })
 export class AntecedentesComponent {
-  cuestioanrioAntecedentesForm:FormGroup;
+  cuestionarioAntecedentesForm:FormGroup;
+  listaOpciones=['Alergias Medicamentosas',
+      'Otras Alergias',
+      'Antecedentes Cardiovasculares',
+      'Inmunologicos',
+      'Infecciosos',
+      'Cardiacos',
+      'Neurologicos',
+      'Endocrino Metabolicos',
+      'Digestivos',
+      'Genitourinarios'];
+  controles:(string|number|null)[]=[]
+  key:string=''
 
   constructor(private fb: FormBuilder){
-    this.cuestioanrioAntecedentesForm = this.fb.group ({
-      'alergiasMedicamentosas':[''],
-      'otrasAlergias':[''],
-      'cardiovasculares':[''],
-      'inmunologicos':[''],
-      'infecciosos':[''],
-      'cardiacos':[''],
-      'neurologicos':[''],
-      'endocrinoMetabolicos':[''],
-      'digestivos':[''],
-      'genitourinarios':[''],
-
-
+    this.cuestionarioAntecedentesForm = this.fb.group ({
+      opciones: this.fb.array(this.listaOpciones.map(() => false))
     })
   }
+
+  get opciones() {
+    return this.cuestionarioAntecedentesForm.get('opciones') as FormArray;
+  }
+
+
 }
