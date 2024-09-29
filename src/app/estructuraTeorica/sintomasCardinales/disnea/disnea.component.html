@@ -1,1 +1,19 @@
-<p>disnea works!</p>
+<div>
+  <form [formGroup]="disneaForm">
+    <div class="tiempoDisnea">
+      <mat-form-field class="example-full-width">
+        <mat-label>¿Cuánto tiempo lleva el paciente con la disnea?</mat-label>
+        <input matInput placeholder="Escribir el tiempo en días" formControlName="tiempoDisnea">
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="disneaForm.get('tiempoDisnea')?.value < 30 && disneaForm.get('tiempoDisnea')?.value > 0">
+      <app-disnea-aguda></app-disnea-aguda>
+    </div>
+
+    <div *ngIf="disneaForm.get('tiempoDisnea')?.value >= 30">
+      <app-disnea-cronica></app-disnea-cronica>
+    </div>
+  </form>
+</div>
+

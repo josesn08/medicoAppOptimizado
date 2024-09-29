@@ -3,15 +3,38 @@
   <h6>Seleccionar antecedentes para agregar</h6>
   <br>
 <form [formGroup]="cuestionarioAntecedentesForm">
-  <div formArrayName="opciones">
-    <div *ngFor="let opciones of opciones.controls; let i = index">
-      <label>
-        <input class="form-check-input" type="checkbox" [formControlName]="i">
-        <label class="form-check-label" for="flexCheckDefault">&nbsp;&nbsp;{{listaOpciones[i]}} </label>
-      </label>
-    </div>
+  <mat-form-field class="example-full-width">
+    <mat-label>Antecedentes</mat-label>
+    <input type="text"
+           placeholder="Escoger una opción"
+           aria-label="Antecedentes"
+           matInput
+           [formControl]="controlEnfermedades"
+           multiple
+           [matAutocomplete]="auto">
+           <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of opcionesFiltradasAntecedentesMedicos | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+  </mat-form-field>
 
-  </div>
+  {{controlEnfermedades.value}}
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Antecedentes</mat-label>
+    <input type="text"
+           placeholder="Escoger una opción"
+           aria-label="Antecedentes"
+           matInput
+           [formControl]="controlEnfermedades"
+           [matAutocomplete]="auto">
+           <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of opcionesFiltradasAntecedentesMedicos | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+  </mat-form-field>
 </form>
 </div>
 <div>

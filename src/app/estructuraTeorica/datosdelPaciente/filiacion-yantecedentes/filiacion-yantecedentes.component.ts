@@ -20,6 +20,7 @@ export class FiliacionYAntecedentesComponent {
   paciente:Paciente[];
   filiacionPacienteForm:FormGroup;
   @Output() asignarEdad = new EventEmitter<number>();
+  @Output() sexoChange = new EventEmitter<string>();
   edad:number=0;
   edadNum: number=0;
 

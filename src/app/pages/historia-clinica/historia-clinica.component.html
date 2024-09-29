@@ -28,9 +28,17 @@
             <option *ngFor="let motivoConsulta of historiaClinica[0].motivoConsulta " [value]="motivoConsulta"> {{ motivoConsulta }}</option>
           </select>
           <br>
+
+
           <div id="mostrarFormularioEDACS" *ngIf="motivoConsultaForm.get('motivoConsulta')?.value === 'Dolor torácico'" class="accordion" >
             <app-formulario-edacs></app-formulario-edacs>
+          </div>
 
+          <div id="mostrarFormularioEDACS" *ngIf="motivoConsultaForm.get('motivoConsulta')?.value === 'Disnea'" >
+            <app-disnea></app-disnea>
+          </div>
+
+          <div id="mostrarFormularioEDACS" *ngIf="motivoConsultaForm.get('motivoConsulta')?.value === 'Malestar general'">
 
           </div>
       </form>
@@ -44,6 +52,12 @@
 
       <label for="exampleFormControlTextarea1" class="form-label">Motivo de Consulta</label>
       <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" [value]="this.motivoConsultaForm.get('motivoConsulta')?.value"></textarea>
+      <br>
+
+      <div *ngIf="motivoConsultaForm.get('motivoConsulta')?.value">
+      <label for="exampleFormControlTextarea2" class="form-label">Antecedentes</label>
+      <textarea class="form-control" id="exampleFormControlTextarea2" rows="5">Paciente {{sexo.toLowerCase()}} de  {{edad}} años, con los siguientes antecedentes: {{motivoConsultaForm.get('motivoConsulta')?.value.toLowerCase()}}</textarea>
+      </div>
     </div>
 </div>
 </div>
