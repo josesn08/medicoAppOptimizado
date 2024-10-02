@@ -2,40 +2,75 @@
 <div>
   <h6>Seleccionar antecedentes para agregar</h6>
   <br>
-<form [formGroup]="cuestionarioAntecedentesForm">
-  <mat-form-field class="example-full-width">
-    <mat-label>Antecedentes</mat-label>
-    <input type="text"
-           placeholder="Escoger una opción"
-           aria-label="Antecedentes"
-           matInput
-           [formControl]="controlEnfermedades"
-           multiple
-           [matAutocomplete]="auto">
-           <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let option of opcionesFiltradasAntecedentesMedicos | async" [value]="option">
-              {{option}}
-            </mat-option>
-          </mat-autocomplete>
-  </mat-form-field>
+  <form [formGroup]="cuestionarioAntecedentesForm">
 
-  {{controlEnfermedades.value}}
+                  <mat-form-field class="example-chip-list">
+                    <mat-label>Antecedentes Patológicos</mat-label>
+                    <mat-chip-grid #chipGrid aria-label="Patologías seleccionadas">
+                      <mat-chip-list>
 
-  <mat-form-field class="example-full-width">
-    <mat-label>Antecedentes</mat-label>
-    <input type="text"
-           placeholder="Escoger una opción"
-           aria-label="Antecedentes"
-           matInput
-           [formControl]="controlEnfermedades"
-           [matAutocomplete]="auto">
-           <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let option of opcionesFiltradasAntecedentesMedicos | async" [value]="option">
-              {{option}}
-            </mat-option>
-          </mat-autocomplete>
-  </mat-form-field>
-</form>
+                      <mat-chip *ngFor="let patologia of patologias" [selectable]="true" [removable]="true" (removed)="eliminarPatologia(patologia)">
+                          {{patologia.description}}
+                          <button matChipRemove>
+                            <mat-icon>cancel</mat-icon>
+                          </button>
+                      </mat-chip>
+                        </mat-chip-list>
+                        <input
+                        placeholder="Añadir patología"
+                        [matChipInputFor]="chipGrid"
+                        [matAutocomplete]="auto"
+                        [matChipInputSeparatorKeyCodes]="[13,188]"
+                        (matChipInputTokenEnd)="agregarPatologia($event)"/>
+                    </mat-chip-grid>
+
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="seleccionarPatologia($event)">
+                      <mat-option **ngFor="let option of opcionesFiltradasAntecedentesMedicos | async" [value]="option">{{option.description}}</mat-option>
+
+                    </mat-autocomplete>
+                  </mat-form-field>
+
+
+
+
+
+
+    <!--<mat-form-field class="example-full-width">
+      <mat-label>Antecedentes</mat-label>
+      <input
+        type="text"
+        placeholder="Escoger una opción"
+        aria-label="Antecedentes"
+        matInput
+        [formControl]="controlEnfermedades"
+        [matAutocomplete]="auto"
+      >
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of opcionesFiltradasAntecedentesMedicos | async" [value]="option.description">
+          {{ option.description }} <!- Cambia "name" por la propiedad correspondiente de tu objeto ->
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <button type="button" class="btn btn-primary" (click)="agregarPatologia()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+      </svg>
+    </button>
+
+    <div>
+      <h6>Patologías agregadas</h6>
+      <ul>
+        <li *ngFor="let patologia of patologias">
+          {{ patologia }}
+          <button type="button" (click)="eliminarPatologia(patologia)" class="btn btn-danger btn-sm">
+            Eliminar
+          </button>
+        </li>
+      </ul>
+    </div>
+-->
+  </form>
 </div>
 <div>
   <h6>Seleccion la medicación que toma el paciente</h6>

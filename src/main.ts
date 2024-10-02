@@ -8,6 +8,7 @@ import { environment } from './environments/environment';
 import { enableProdMode } from '@angular/core';
 import { importProvidersFrom } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 if (environment.production) {
   enableProdMode();
@@ -16,7 +17,7 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),  // Configura el enrutador con las rutas definidas
-    importProvidersFrom(BrowserAnimationsModule)
+    importProvidersFrom(BrowserAnimationsModule, HttpClientModule)
   ]
 })
 .catch(err => console.error(err));

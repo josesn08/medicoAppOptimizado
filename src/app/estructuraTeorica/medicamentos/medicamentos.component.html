@@ -1,44 +1,58 @@
 <!-- medicamento-selector.component.html -->
 <div>
-<form [formGroup]="medicamentosForm">
+  <form [formGroup]="medicamentosForm">
 
-  <form class="example-form">
-
-  <mat-form-field appearance="fill" class="custom-mat-form-field">
-
-    <mat-label>Nombre Genérico</mat-label>
-    <input type="text" matInput formControlName="nombreGenerico" [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let medicamento of filteredMedicamentos | async" [value]="medicamento.nombreGenerico">
-        {{ medicamento.nombreGenerico }}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-
-
-  <mat-form-field appearance="fill" class="custom-mat-form-field">
-    <mat-label>Presentación</mat-label>
-    <mat-select formControlName="presentacion">
-      <mat-option *ngFor="let presentacion of presentaciones" [value]="presentacion">
-        {{ presentacion }}
-      </mat-option>
-    </mat-select>
-
+    <form class="example-form">
+      <div>
+        <mat-form-field appearance="fill" class="custom-mat-form-field">
+          <mat-label>Medicamento</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="nombreGenerico"
+            [matAutocomplete]="auto"
+            (keydown)="buscarMedicamentos()"
+          />
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option
+              *ngFor="let medicamento of filteredMedicamentos | async"
+              [value]="medicamento.nombre"
+            >
+              {{ medicamento.nombre }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
 
 
-  </mat-form-field>
+        <div id="horasMedicacion">
+          <mat-form-field class="example-full-width" id="horasMedicacion1">
+            <mat-label>Desayuno</mat-label>
+            <input matInput placeholder="Pastillas que toma" formControlName="pastillasDesayuno">
+          </mat-form-field>
 
-  <button type="button" class="btn btn-primary">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-      <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
-    </svg>
-  </button>
+          <mat-form-field class="example-full-width" id="horasMedicacion1">
+            <mat-label>Comida</mat-label>
+            <input matInput placeholder="Pastillas que toma" formControlName="pastillasComida">
+          </mat-form-field>
 
+          <mat-form-field class="example-full-width" id="horasMedicacion1">
+            <mat-label>Merienda</mat-label>
+            <input matInput placeholder="Pastillas que toma" formControlName="pastillasMerienda">
+          </mat-form-field>
 
+          <mat-form-field class="example-full-width" id="horasMedicacion1">
+            <mat-label>Cena</mat-label>
+            <input matInput placeholder="Pastillas que toma" formControlName="pastillasCena">
+          </mat-form-field>
+        </div>
+      </div>
 
+      <button type="button" class="btn btn-primary" (click)="agregarMedicamento()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+        </svg>
+      </button>
 
-
-
+    </form>
   </form>
-</form>
 </div>

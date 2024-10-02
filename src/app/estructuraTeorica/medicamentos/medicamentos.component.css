@@ -1,5 +1,5 @@
 form{
-  display: flex;
+  display: flexbox;
   gap: 5px;
   align-items:first baseline;
 }
@@ -7,5 +7,18 @@ form{
 button{
 
   height: 50%;
-
+  width: 50%;
+  align-items:center
 }
+
+#horasMedicacion{
+  display: flex;
+  width: 50%;
+  gap: 0.5px;
+}
+
+#horasMedicacion1{
+
+  width: 100%;
+}
+

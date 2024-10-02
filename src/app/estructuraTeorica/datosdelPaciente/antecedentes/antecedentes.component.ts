@@ -1,81 +1,92 @@
+import { DatosCompartidosHistoriaClinicaService } from './../../../service/datos-compartidos-historia-clinica.service';
 import { NgFor } from '@angular/common';
-import { Component, ElementRef, input, ViewChild } from '@angular/core';
+import { Component, ElementRef, input, OnInit, ViewChild, ChangeDetectionStrategy, computed, inject, model, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, FormArray, FormControl, FormsModule } from '@angular/forms';
 import { MedicamentosComponent } from '../../medicamentos/medicamentos.component';
 import {AsyncPipe} from '@angular/common';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatAutocompleteModule, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { debounceTime } from 'rxjs/operators';
+import {LiveAnnouncer} from '@angular/cdk/a11y';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {MatChipInputEvent, MatChipsModule} from '@angular/material/chips';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-antecedentes',
   standalone: true,
-  imports: [NgFor, ReactiveFormsModule, MedicamentosComponent, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, AsyncPipe],
+  imports: [NgFor, ReactiveFormsModule, MedicamentosComponent, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, AsyncPipe, MatChipsModule, MatIconModule],
   templateUrl: './antecedentes.component.html',
-  styleUrl: './antecedentes.component.css'
+  styleUrls: ['./antecedentes.component.css']
 })
-export class AntecedentesComponent {
-  ;
-  cuestionarioAntecedentesForm:FormGroup;
-  cuestionarioAntecedentesQuirurgicosForm: FormGroup
-  listaOpciones=['Alergias Medicamentosas',
-      'Otras Alergias',
-      'Antecedentes Cardiovasculares',
-      'Inmunologicos',
-      'Infecciosos',
-      'Cardiacos',
-      'Neurologicos',
-      'Endocrino Metabolicos',
-      'Digestivos',
-      'Genitourinarios'];
-  controles:(string|number|null)[]=[]
-  key:string=''
-  patologiaQuirurgicaEspecialidad: string[] = ['Neurocirugía', 'Otorrinolaringología', 'Oftalmología', 'Ginecoobstetricia','Cirugía general', 'Ortopedia', 'Urología', 'Cirugía vascular', 'Cirugía Cardica', 'Maxilofacial', 'Cirugía Plastica', 'Dermatología']
-  patologiaNeumologica: string[] = ['EPOC', 'Asma', 'Hipertensión Pulmonar / CorPulmonale', 'Enfermedad intersticial del pulmón', 'Embolismo pulmonar previo', 'Neumotórax previo(s)', 'Neoplasia Pulmonar', 'Pleuritis', 'Derrame pleural previo', 'Disfunción de las cuerdas vocales', 'Parálisis de las cuerdas vocales'];
-  patologiaCardiaca: string[] = ['Insuficiencia cardiaca congestiva', 'Isquemia miocardica', 'Infarto miocardico previo', 'Cardiomiopatía', 'Valvulopatía', 'Pericarditis a repetición', 'Arritmia cardiaca'];
-  patologiaEndocrinoMetabolica: string[] = ['Obesidad', 'Acidosis', 'Hipotiroidismo', 'Hipertiroidismo'];
-  patologiaPsiquiatrica: string[] = ['Ansiedad'];
-  patologiaDigestiva: string[] = ['Reflujo gastroesofágico', 'Cirosis hepática', 'Ascitis'];
-  patologiaGonecologica: string[] = ['Embarazo'];
-  patologiaHematologica: string[] = ['Anemia'];
-  patologiaNeurologica: string[] = ['Miastenia Gravis', 'Esclerosis lateral amiotrófica'];
-  patologiaRenal: string[] = ['Insuficiencia Renal'];
-  opcionesFiltradasAntecedentesMedicos!: Observable<string[]>;
-  opcionesFiltradasAntecedentesQuirurgicos!: Observable<String[]> ;
-  controlEnfermedades = new FormControl();
+export class AntecedentesComponent implements OnInit {
+  cuestionarioAntecedentesForm: FormGroup;
+  controlEnfermedades: FormControl;
+  opcionesAntecedentes: any[] = [];
+  private opcionesFiltradasAntecedentesMedicosSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  opcionesFiltradasAntecedentesMedicos: Observable<any[]> = this.opcionesFiltradasAntecedentesMedicosSubject.asObservable();
+  patologias: string[] = [];
 
-
-  constructor(private fb: FormBuilder){
-    this.cuestionarioAntecedentesForm = this.fb.group ({
-      opciones: ['']
-
-    }),
-
-    this.cuestionarioAntecedentesQuirurgicosForm = this.fb.group({
-      tipoEspecialidad: [''],
-      patologia: [''],
-      anoCirugia: ['']
-    })
+  constructor(private fb: FormBuilder, private http: HttpClient, private patologiaService: DatosCompartidosHistoriaClinicaService) {
+    this.controlEnfermedades = this.fb.control('');
+    this.cuestionarioAntecedentesForm = this.fb.group({
+      enfermedades: this.controlEnfermedades
+    });
   }
 
-  ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    this.opcionesFiltradasAntecedentesMedicos = this.controlEnfermedades.valueChanges.pipe(startWith(''), map(value => this._filter(value || '')));
+  ngOnInit() {
+    this.cargarOpcionesAntecedentes();
 
-    console.log(this.cuestionarioAntecedentesForm.get('opciones')?.value);
+    this.controlEnfermedades.valueChanges
+      .pipe(debounceTime(300))
+      .subscribe(value => {
+        this._filter(value);
+      });
 
-
-    this.opcionesFiltradasAntecedentesQuirurgicos = this.controlEnfermedades.valueChanges.pipe(startWith(''), map(value => this._filter(value || '')));
-
-
-
+    this.patologiaService.patologias$.subscribe((patologias) => {
+      this.patologias = patologias;
+    });
   }
 
-  private _filter(value: string): string[]{
+  cargarOpcionesAntecedentes() {
+    this.http.get<any[]>('cie-10.json').subscribe(data => {
+      this.opcionesAntecedentes = data;
+    });
+  }
+
+  private _filter(value: string): void {
+    if (!value) {
+      // Si el valor es null o undefined, emitimos todas las opciones
+      this.opcionesFiltradasAntecedentesMedicosSubject.next(this.opcionesAntecedentes);
+      return;
+    }
+
     const filterValue = value.toLowerCase();
-    return this.listaOpciones.filter(option => option.toLowerCase().includes(filterValue));
+
+    const filteredOptions = this.opcionesAntecedentes.filter(option =>
+      option && option.description && option.description.toLowerCase().includes(filterValue)
+    );
+
+    // Emitimos las opciones filtradas
+    this.opcionesFiltradasAntecedentesMedicosSubject.next(filteredOptions);
+  }
+
+  agregarPatologia() {
+    const patologia = this.cuestionarioAntecedentesForm.get('enfermedades')?.value;
+
+    const enfermedad = `${patologia}`;
+
+    console.log('Patologia guardada:', enfermedad); // Para ver el resultado correcto
+    this.patologiaService.agregarPatologia(enfermedad);
+
+    this.cuestionarioAntecedentesForm.reset();
+  }
+
+  eliminarPatologia(patologia: string) {
+    this.patologiaService.eliminarPatologia(patologia);
   }
 }

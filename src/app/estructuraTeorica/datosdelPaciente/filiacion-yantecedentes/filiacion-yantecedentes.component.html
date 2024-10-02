@@ -20,8 +20,10 @@
   </div>
   <br>
   <div class="container" id="content">
-    <label for="profesionPaciente" class="form-label">Profesión</label>
-    <input id="profesionPaciente" class="form-control form-control-sm" type="text" aria-label=".form-control-sm example" formControlName="profesion">
+    <mat-form-field class="example-full-width">
+      <mat-label>Profesión</mat-label>
+      <input matInput type="text" placeholder="Escribe la profesión del paciente">
+    </mat-form-field>
 
     <label for="orientacionSexual" class="form-label"> Orientacion sexual </label>
     <div id="orientacionSexual" class="btn-group" role="group" aria-label="Basic radio toggle button group" >

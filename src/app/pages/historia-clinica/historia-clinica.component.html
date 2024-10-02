@@ -56,7 +56,7 @@
 
       <div *ngIf="motivoConsultaForm.get('motivoConsulta')?.value">
       <label for="exampleFormControlTextarea2" class="form-label">Antecedentes</label>
-      <textarea class="form-control" id="exampleFormControlTextarea2" rows="5">Paciente {{sexo.toLowerCase()}} de  {{edad}} años, con los siguientes antecedentes: {{motivoConsultaForm.get('motivoConsulta')?.value.toLowerCase()}}</textarea>
+      <textarea class="form-control" id="exampleFormControlTextarea2" rows="5" [value]="'Paciente ' + sexo.toLowerCase() + ' de ' + edad + ' años, con los siguientes antecedentes:\nPatológicos:\n' + patologias.join(', ') + '\nMedicación actual:\n' + medicamentos.join('\n')"></textarea>
       </div>
     </div>
 </div>
