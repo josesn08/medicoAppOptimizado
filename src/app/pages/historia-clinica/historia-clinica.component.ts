@@ -3,7 +3,7 @@ import { FormularioEDACSComponent } from './../../estructuraTeorica/formularios/
 import { FiliacionYAntecedentesComponent } from './../../estructuraTeorica/datosdelPaciente/filiacion-yantecedentes/filiacion-yantecedentes.component';
 import { HistoriaClinica } from './../../model/historia-clinica';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgFor, CommonModule, NgIf } from '@angular/common';
 import { AntecedentesComponent } from "../../estructuraTeorica/datosdelPaciente/antecedentes/antecedentes.component";
 import { DisneaComponent } from "../../estructuraTeorica/sintomasCardinales/disnea/disnea.component";
@@ -34,7 +34,8 @@ export class HistoriaClinicaComponent implements OnInit{
   constructor(private fb: FormBuilder, private datosCompartidos: DatosCompartidosHistoriaClinicaService, private cimaService: CimaService){
     this.motivoConsultaForm = this.fb.group({
 
-      'motivoConsulta': ['']
+      'motivoConsulta': [''],
+      antecedentesCompletos: new FormControl ('')
     });
 
     this.historiaClinica = [{
@@ -76,21 +77,36 @@ export class HistoriaClinicaComponent implements OnInit{
     // Suscríbete al Observable para obtener el sexo
     this.datosCompartidos.getSexo().subscribe((sexo) => {
       this.sexo = sexo;
+      this.updateTextareaContent();
     });
     this.datosCompartidos.getEdad().subscribe((edad) => {
       this.edad = edad;
+      this.updateTextareaContent();
     });
     this.datosCompartidos.medicamentos$.subscribe((medicamentos) => {
       this.medicamentos = medicamentos;
+      this.updateTextareaContent();
     });
     this.datosCompartidos.patologias$.subscribe((patologias) => {
       this.patologias = patologias;
+      this.updateTextareaContent();
     });
   }
 
   onSubmit(){
 
 
+  }
+
+  updateTextareaContent() {
+    const content = `Paciente ${this.sexo.toLowerCase()} de ${this.edad} años, con los siguientes antecedentes:
+    Patológicos:
+    ${this.patologias.join(', ')}
+    Medicación actual:
+    ${this.medicamentos.join('\n')}`;
+
+    // Actualizamos el FormControl con el nuevo contenido
+    this.motivoConsultaForm.get('antecedentesCompletos')?.setValue(content);
   }
 
 

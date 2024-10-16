@@ -30,7 +30,6 @@ import { Medicamento, MedicamentoResponse } from 'src/app/model/medicamento.mode
 export class MedicamentosComponent implements OnInit{
   medicamentos: Medicamento[] = [];
   medicamentosForm:FormGroup;
-  presentaciones:string[]=[]
   filteredMedicamentos: Observable<any[]> | undefined;
 
   constructor(private fb: FormBuilder, private cimaService: CimaService , private medicamentoService: DatosCompartidosHistoriaClinicaService) {

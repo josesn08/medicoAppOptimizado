@@ -1,0 +1,10 @@
+{
+  "/api": {
+    "target": "https://icdaccessmanagement.who.int",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": ""
+    }
+  }
+}

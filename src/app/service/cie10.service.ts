@@ -1,16 +1,18 @@
+// src/app/service/cie10.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { DiagnosticoResponse } from '../model/diagnostico-response';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class Cie10Service {
-  private apiUrl = 'https://raw.githubusercontent.com/verasativa/CIE-10/main/cie10.json';  // URL del repositorio con los datos
+export class DiagnosticosService {
+  private apiUrl = 'http://http://87.219.176.13:8000/diagnosticos/'; // Asegúrate de que esta URL sea correcta
 
   constructor(private http: HttpClient) {}
 
-  getDiagnosticos(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  getDiagnosticos(): Observable<DiagnosticoResponse> {
+    return this.http.get<DiagnosticoResponse>('http://http://87.219.176.13:8000/diagnosticos/');
   }
 }

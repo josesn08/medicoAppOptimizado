@@ -1,0 +1,54 @@
+<mat-card>
+  <mat-card-title>Calculadora de Escala de Glasgow</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="glasgowForm">
+      <!-- Respuesta Ocular -->
+      <mat-form-field appearance="outline">
+        <mat-label>Respuesta Ocular</mat-label>
+        <mat-select formControlName="respuestaOcular">
+          @for (option of opcionesOcular; track $index) {
+          <mat-option [value]="option.value">
+            {{option.label + ' (' + option.value + ')'}}
+          </mat-option>
+        }
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Respuesta Verbal -->
+      <mat-form-field appearance="outline">
+        <mat-label>Respuesta Verbal</mat-label>
+        <mat-select formControlName="respuestaVerbal">
+          @for (option of opcionesVerbal; track $index) {
+          <mat-option [value]="option.value">
+            {{option.label + ' (' + option.value + ')'}}
+          </mat-option>
+        }
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Respuesta Motora -->
+      <mat-form-field appearance="outline">
+        <mat-label>Respuesta Motora</mat-label>
+        <mat-select formControlName="respuestaMotora">
+          @for (option of opcionesMotora; track $index) {
+            <mat-option [value]="option.value">
+              {{option.label + ' (' + option.value + ')'}}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+
+  <!-- Resultado -->
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="calcularGlasgow()">Calcular Glasgow</button>
+  </mat-card-actions>
+
+@if (resultadoGlasgow !== null) {
+  <mat-card-footer>
+    <h3>Puntaje Glasgow: {{ resultadoGlasgow }}</h3>
+  </mat-card-footer>
+}
+
+</mat-card>

@@ -49,15 +49,21 @@
     <div class="card-body">
       <h5 class="card-title text-primary" >HISTORIA CLÍNICA</h5>
 
-
+      <form [formGroup]="motivoConsultaForm">
       <label for="exampleFormControlTextarea1" class="form-label">Motivo de Consulta</label>
       <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" [value]="this.motivoConsultaForm.get('motivoConsulta')?.value"></textarea>
       <br>
 
       <div *ngIf="motivoConsultaForm.get('motivoConsulta')?.value">
       <label for="exampleFormControlTextarea2" class="form-label">Antecedentes</label>
-      <textarea class="form-control" id="exampleFormControlTextarea2" rows="5" [value]="'Paciente ' + sexo.toLowerCase() + ' de ' + edad + ' años, con los siguientes antecedentes:\nPatológicos:\n' + patologias.join(', ') + '\nMedicación actual:\n' + medicamentos.join('\n')"></textarea>
+      <textarea
+      class="form-control"
+      id="exampleFormControlTextarea2"
+      rows="5"
+      formControlName="antecedentesCompletos">
+    </textarea>
       </div>
+    </form>
     </div>
 </div>
 </div>

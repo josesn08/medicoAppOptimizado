@@ -1,1 +1,148 @@
-<p>disnea-aguda works!</p>
+
+
+<div>
+  <form [formGroup]="disneaAgudaForm">
+    <div class="example-action-buttons">
+      <button mat-button (click)="accordion().openAll()">Expand All</button>
+      <button mat-button (click)="accordion().closeAll()">Collapse All</button>
+    </div>
+    <mat-accordion class="example-headers-align" multi>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title >
+            Hay gravedad inicial !!!!!
+          </mat-panel-title>
+
+          <mat-panel-description>
+            Si cree que el paciente está critico, actualice los siguientes datos
+            <mat-icon>
+              emergency
+            </mat-icon>
+          </mat-panel-description>
+
+
+        </mat-expansion-panel-header>
+
+        <div style="display: grid;" id="signosGravedad">
+          <form [formGroup]="condicionPacienteForm">
+          <mat-form-field class="example-chip-list" style="width: 100%;">
+            <mat-label>Seleccione la condicion de GRAVEDAD</mat-label>
+            <mat-chip-grid #chipGrid aria-label="Selección de condicion del paciente">
+              @for (condicionPaciente of condicionesPaciente(); track $index) {
+                <mat-chip-row (removed)="eliminarCondicionPaciente(condicionPaciente)">
+                  {{condicionPaciente}}
+                  <button matChipRemove [attr.aria-label]="'remove ' + condicionPaciente">
+                    <mat-icon >
+                      cancel
+                    </mat-icon>
+                  </button>
+                </mat-chip-row>
+              }
+            </mat-chip-grid>
+            <input
+              name="CondicionPacienteActual"
+              placeholder="Incluir la condición actual del paciente"
+              #condicionPacienteInput
+              formControlName="condicionPacienteActual"
+              [matChipInputFor]="chipGrid"
+              [matAutocomplete]="auto"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              (matChipInputTokenEnd)="agregarCondicionPaciente($event)"
+            />
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="seleccionarCondicionPaciente($event)">
+              @for (condicionPaciente of (condicionPacienteActualFiltrada$ | async); track condicionPaciente) {
+                <mat-option [value]="condicionPaciente">{{condicionPaciente}}</mat-option>
+              }
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+
+
+          <mat-label for="paradaCardiorrespiratoria">¿Se encuentra en parada cardiorrespiratoria?</mat-label>
+          <mat-radio-group id="paradaCardiorrespiratoria" formControlName="paradaCardiorrespiratoria" (change)="iniciarRCP($event)" >
+            <mat-radio-button value='true'>Sí</mat-radio-button>
+            <mat-radio-button value='false'>No</mat-radio-button>
+          </mat-radio-group>
+          <br>
+          <!-- {{this.disneaAgudaForm.get('paradaCardiorrespiratoria')?.value}} -->
+
+          <label for="necesidadOxigeno">¿El paciente requiere oxígeno?</label>
+          <mat-radio-group id="necesidadOxigeno" formControlName="necesidadOxigeno">
+            <mat-radio-button value='true'>Sí</mat-radio-button>
+            <mat-radio-button value='false'>No</mat-radio-button>
+          </mat-radio-group>
+
+          <br>
+
+          @if(disneaAgudaForm.get('necesidadOxigeno')?.value == 'true'){
+          <mat-label>¿Hay mejoría de la saturación con el oxígeno?</mat-label>
+            <mat-radio-group formControlName="mejoriaSaturacion">
+              <mat-radio-button value='true'>Sí</mat-radio-button>
+              <mat-radio-button value='false'>No</mat-radio-button>
+          </mat-radio-group>}
+
+          <br>
+
+          @if(disneaAgudaForm.get('necesidadOxigeno')?.value == 'true'){
+          <mat-label>Equipo de suminisro de Oxigeno</mat-label>
+          <mat-form-field  class="example-full-width">
+            <input type="text"
+              placeholder="Escoja Una"
+              aria-label="Escoja el suplemento de Oxígeno"
+              matInput
+              formControlName="suplementoOxigeno"
+              [matAutocomplete]="auto"
+              value="">
+            <mat-autocomplete #auto="matAutocomplete">
+              @for (option of opcionesFiltradas | async; track option) {
+                <mat-option [value]="option">{{option}}</mat-option>
+              }
+            </mat-autocomplete>
+          </mat-form-field>}
+          <br>
+
+          <div>
+            <mat-label> Estado de consciencia </mat-label>
+            <app-escala-glasgow></app-escala-glasgow>
+          </div>
+
+
+
+
+        </div>
+      </mat-expansion-panel>
+
+
+      <mat-expansion-panel disabled>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Destination </mat-panel-title>
+          <mat-panel-description>
+            Type the country name
+            <mat-icon>map</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field>
+          <mat-label>Country</mat-label>
+          <input matInput formControlName="suplementoOxigeno"/>
+        </mat-form-field>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Day of the trip </mat-panel-title>
+          <mat-panel-description>
+            Inform the date you wish to travel
+            <mat-icon>date_range</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field>
+          <mat-label>Date</mat-label>
+          <input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly />
+        </mat-form-field>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-expansion-panel>
+    </mat-accordion>
+</form>
+</div>

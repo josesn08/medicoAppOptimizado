@@ -9,6 +9,10 @@ import { enableProdMode } from '@angular/core';
 import { importProvidersFrom } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import {provideHttpClient} from '@angular/common/http';
+import {provideAnimations} from '@angular/platform-browser/animations';
+import {VERSION as CDK_VERSION} from '@angular/cdk';
+import {VERSION as MAT_VERSION, MatNativeDateModule} from '@angular/material/core';
 
 if (environment.production) {
   enableProdMode();
@@ -17,7 +21,10 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),  // Configura el enrutador con las rutas definidas
-    importProvidersFrom(BrowserAnimationsModule, HttpClientModule)
+    importProvidersFrom(BrowserAnimationsModule, HttpClientModule),
+    provideAnimations(),
+    provideHttpClient(),
+    importProvidersFrom(MatNativeDateModule),
   ]
 })
 .catch(err => console.error(err));
